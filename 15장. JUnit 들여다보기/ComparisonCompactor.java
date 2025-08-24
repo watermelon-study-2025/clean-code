@@ -1,7 +1,6 @@
 package junit.framework;
 
 public class ComparisonCompactor {
-
     private static final String ELLIPSIS = "...";
     private static final String DELTA_END = "]";
     private static final String DELTA_START = "[";
@@ -21,18 +20,19 @@ public class ComparisonCompactor {
     }
 
     public String compact(String message) {
-        if (shouldNotCompact())
-            return Assert.format(message, this.expected, this.actual);
-
-        findCommonPrefix();
-        findCommonSuffix();
-        String expected = compactString(this.expected);
-        String actual = compactString(this.actual);
-        return Assert.format(message, expected, actual);
+        if (canBeCompacted()) {
+            findCommonPrefix();
+            findCommonSuffix();
+            String compactExpected = compactString(this.expected);
+            String compactActual = compactString(this.actual);
+            return Assert.format(message, compactExpected, compactActual);
+        } else {
+            return Assert.format(message, expected, actual);
+        }
     }
 
-    private boolean shouldNotCompact() {
-        return this.expected == null || this.actual == null || areStringsEqual();
+    private boolean canBeCompacted() {
+        return expected != null && actual != null && !areStringsEqual();
     }
 
     private String compactString(String source) {

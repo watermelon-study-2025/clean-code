@@ -6,76 +6,76 @@ public class ComparisonCompactor {
     private static final String DELTA_END = "]";
     private static final String DELTA_START = "[";
 
-    private int fContextLength;
-    private String fExpected;
-    private String fActual;
-    private int fPrefix;
-    private int fSuffix;
+    private int contextLength;
+    private String expected;
+    private String actual;
+    private int prefix;
+    private int suffix;
 
     public ComparisonCompactor(int contextLength,
                                String expected,
                                String actual) {
-        fContextLength = contextLength;
-        fExpected = expected;
-        fActual = actual;
+        this.contextLength = contextLength;
+        this.expected = expected;
+        this.actual = actual;
     }
 
     public String compact(String message) {
-        if (fExpected == null || fActual == null || areStringsEqual())
-            return Assert.format(message, fExpected, fActual);
+        if (this.expected == null || this.actual == null || areStringsEqual())
+            return Assert.format(message, this.expected, this.actual);
 
         findCommonPrefix();
         findCommonSuffix();
-        String expected = compactString(fExpected);
-        String actual = compactString(fActual);
+        String expected = compactString(this.expected);
+        String actual = compactString(this.actual);
         return Assert.format(message, expected, actual);
     }
 
     private String compactString(String source) {
         String result = DELTA_START +
-                source.substring(fPrefix, source.length() - fSuffix + 1) +
+                source.substring(this.prefix, source.length() - this.suffix + 1) +
                 DELTA_END;
 
-        if (fPrefix > 0)
+        if (this.prefix > 0)
             result = computeCommonPrefix() + result;
-        if (fSuffix > 0)
+        if (this.suffix > 0)
             result = result + computeCommonSuffix();
         return result;
     }
 
     private void findCommonPrefix() {
-        fPrefix = 0;
-        int end = Math.min(fExpected.length(), fActual.length());
-        for (; fPrefix < end; fPrefix++) {
-            if (fExpected.charAt(fPrefix) != fActual.charAt(fPrefix))
+        this.prefix = 0;
+        int end = Math.min(this.expected.length(), this.actual.length());
+        for (; this.prefix < end; this.prefix++) {
+            if (this.expected.charAt(this.prefix) != this.actual.charAt(this.prefix))
                 break;
         }
     }
 
     private void findCommonSuffix() {
-        int expectedSuffix = fExpected.length() - 1;
-        int actualSuffix = fActual.length() - 1;
-        for (; actualSuffix >= fPrefix && expectedSuffix >= fPrefix;
+        int expectedSuffix = this.expected.length() - 1;
+        int actualSuffix = this.actual.length() - 1;
+        for (; actualSuffix >= this.prefix && expectedSuffix >= this.prefix;
              actualSuffix--, expectedSuffix--) {
-            if (fExpected.charAt(expectedSuffix) != fActual.charAt(actualSuffix))
+            if (this.expected.charAt(expectedSuffix) != this.actual.charAt(actualSuffix))
                 break;
         }
-        fSuffix = fExpected.length() - expectedSuffix;
+        this.suffix = this.expected.length() - expectedSuffix;
     }
 
     private String computeCommonPrefix() {
-        return (fPrefix > fContextLength ? ELLIPSIS : "") +
-                fExpected.substring(Math.max(0, fPrefix - fContextLength), fPrefix);
+        return (this.prefix > this.contextLength ? ELLIPSIS : "") +
+                this.expected.substring(Math.max(0, this.prefix - this.contextLength), this.prefix);
     }
 
     private String computeCommonSuffix() {
-        int end = Math.min(fExpected.length() - fSuffix + 1 + fContextLength,
-                fExpected.length());
-        return fExpected.substring(fExpected.length() - fSuffix + 1, end) +
-                (fExpected.length() - fSuffix + 1 < fExpected.length() - fContextLength ? ELLIPSIS : "");
+        int end = Math.min(this.expected.length() - this.suffix + 1 + this.contextLength,
+                this.expected.length());
+        return this.expected.substring(this.expected.length() - this.suffix + 1, end) +
+                (this.expected.length() - this.suffix + 1 < this.expected.length() - this.contextLength ? ELLIPSIS : "");
     }
 
     private boolean areStringsEqual() {
-        return fExpected.equals(fActual);
+        return this.expected.equals(this.actual);
     }
 }

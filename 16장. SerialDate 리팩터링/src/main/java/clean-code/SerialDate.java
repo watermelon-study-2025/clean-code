@@ -43,20 +43,20 @@ import java.util.*;
 /**
  *  An abstract class that defines our requirements for manipulating dates,
  *  without tying down a particular implementation.
- *  <P>
+ *  
  *  Requirement 1 : match at least what Excel does for dates;
  *  Requirement 2 : the date represented by the class is immutable;
- *  <P>
+ *  
  *  Why not just use java.util.Date?  We will, when it makes sense.  At times,
  *  java.util.Date can be *too* precise - it represents an instant in time,
  *  accurate to 1/1000th of a second (with the date itself depending on the
  *  time-zone).  Sometimes we just want to represent a particular day (e.g. 21
  *  January 2015) without concerning ourselves about the time of day, or the
  *  time-zone, or anything else.  That's what we've defined SerialDate for.
- *  <P>
+ *  
  *  You can call getInstance() to get a concrete subclass of SerialDate,
  *  without worrying about the exact implementation.
- *
+ * 
  * @author David Gilbert
  */
 public abstract class SerialDate implements Comparable, 

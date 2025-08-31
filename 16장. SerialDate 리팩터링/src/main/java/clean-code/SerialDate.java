@@ -37,10 +37,8 @@
 package org.jfree.date;
 
 import java.io.Serializable;
-import java.text.DateFormatSymbols;
-import java.text.SimpleDateFormat;
-import java.util.Calendar;
-import java.util.GregorianCalendar;
+import java.text.*;
+import java.util.*;
 
 /**
  *  An abstract class that defines our requirements for manipulating dates,

@@ -681,7 +681,7 @@ public abstract class SerialDate implements Comparable,
         // find the date...
         final int adjust;
         final int baseDOW = base.getDayOfWeek();
-        if (baseDOW > targetWeekday) {
+        if (baseDOW >= targetWeekday) { // step03 : 버그 수정 (연말 -> 연초 넘어갈 때)
             adjust = 7 + Math.min(0, targetWeekday - baseDOW);
         }
         else {

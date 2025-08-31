@@ -414,11 +414,11 @@ public class BobsSerialDateTests extends TestCase {
         assertEquals("Fourth", weekInMonthToString(FOURTH_WEEK_IN_MONTH));
         assertEquals("Last", weekInMonthToString(LAST_WEEK_IN_MONTH));
 
-        //todo try {
-        // weekInMonthToString(-1);
-        // fail("Invalid week code should throw exception");
-        // } catch (IllegalArgumentException e) {
-        // }
+        try {
+            weekInMonthToString(-1);
+            fail("Invalid week code should throw exception");
+        } catch (IllegalArgumentException e) {  // step05 : 오류 문자열 반환 대신 예외 발생 처리
+        }
     }
 
     public void testRelativeToString() throws Exception {
@@ -426,11 +426,11 @@ public class BobsSerialDateTests extends TestCase {
         assertEquals("Nearest", relativeToString(NEAREST));
         assertEquals("Following", relativeToString(FOLLOWING));
 
-        //todo try {
-        // relativeToString(-1000);
-        // fail("Invalid relative code should throw exception");
-        // } catch (IllegalArgumentException e) {
-        // }
+        try {
+            relativeToString(-1000);
+            fail("Invalid relative code should throw exception");
+        } catch (IllegalArgumentException e) {  // step05 : 오류 문자열 반환 대신 예외 발생 처리
+        }
     }
 
     public void testCreateInstanceFromDDMMYYY() throws Exception {

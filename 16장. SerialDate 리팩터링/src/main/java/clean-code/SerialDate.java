@@ -754,7 +754,7 @@ public abstract class SerialDate implements Comparable,
             case SerialDate.FOURTH_WEEK_IN_MONTH : return "Fourth";
             case SerialDate.LAST_WEEK_IN_MONTH : return "Last";
             default :
-                return "SerialDate.weekInMonthToString(): invalid code.";
+                throw new IllegalArgumentException("SerialDate.weekInMonthToString(): invalid code.");  // step05 : 오류 문자열 반환 대신 예외 발생 처리
         }
 
     }
@@ -774,7 +774,8 @@ public abstract class SerialDate implements Comparable,
             case SerialDate.PRECEDING : return "Preceding";
             case SerialDate.NEAREST : return "Nearest";
             case SerialDate.FOLLOWING : return "Following";
-            default : return "ERROR : Relative To String";
+            default : 
+                throw new IllegalArgumentException("ERROR : Relative To String");   // step05 : 오류 문자열 반환 대신 예외 발생 처리
         }
 
     }

@@ -453,12 +453,13 @@ public abstract class SerialDate implements Comparable,
 
         // now search through the month names...
         if ((result < 1) || (result > 12)) {
+            result = -1;    // step02 : 범위 밖의 값이 들어올 경우 -1 반환
             for (int i = 0; i < monthNames.length; i++) {
-                if (s.equals(shortMonthNames[i])) {
+                if (s.equalsIgnoreCase(shortMonthNames[i])) { // step02 : 대소문자 구분 없이 모두 통과해야함
                     result = i + 1;
                     break;
                 }
-                if (s.equals(monthNames[i])) {
+                if (s.equalsIgnoreCase(monthNames[i])) {  // step02 : 대소문자 구분 없이 모두 통과해야함
                     result = i + 1;
                     break;
                 }

@@ -93,7 +93,7 @@ public class SpreadsheetDate extends DayDate {
     private final int day;
 
     /** The month of the year (1 to 12). */
-    private final int month;
+    private final Month month;
 
     /** The year (1900 to 9999). */
     private final int year;
@@ -106,6 +106,10 @@ public class SpreadsheetDate extends DayDate {
      * @param year  the year (in the range 1900 to 9999).
      */
     public SpreadsheetDate(final int day, final int month, final int year) {
+        this(day, Month.make(month), year);
+    }
+
+    public SpreadsheetDate(final int day, final Month month, final int year) {
 
         if ((year >= 1900) && (year <= 9999)) {
             this.year = year;
@@ -116,8 +120,8 @@ public class SpreadsheetDate extends DayDate {
             );
         }
 
-        if ((month >= MonthConstants.JANUARY) 
-                && (month <= MonthConstants.DECEMBER)) {
+        if ((month.index >= Month.JANUARY.index) 
+                && (month.index <= Month.DECEMBER.index)) {
             this.month = month;
         }
         else {
@@ -219,7 +223,7 @@ public class SpreadsheetDate extends DayDate {
      */
     public Date toDate() {
         final Calendar calendar = Calendar.getInstance();
-        calendar.set(getYYYY(), getMonth() - 1, getDayOfMonth(), 0, 0, 0);
+        calendar.set(getYYYY(), getMonth().index - 1, getDayOfMonth(), 0, 0, 0);
         return calendar.getTime();
     }
 
@@ -237,7 +241,7 @@ public class SpreadsheetDate extends DayDate {
      *
      * @return The month of the year.
      */
-    public int getMonth() {
+    public Month getMonth() {
         return this.month;
     }
 
@@ -446,16 +450,67 @@ public class SpreadsheetDate extends DayDate {
      *
      * @return the serial number from the day, month and year.
      */
-    private int calcSerial(final int d, final int m, final int y) {
+    private int calcSerial(final int d, final Month m, final int y) {
         final int yy = ((y - 1900) * 365) + DayDate.leapYearCount(y - 1);
-        int mm = DayDate.AGGREGATE_DAYS_TO_END_OF_PRECEDING_MONTH[m];
-        if (m > MonthConstants.FEBRUARY) {
+        int mm = DayDate.AGGREGATE_DAYS_TO_END_OF_PRECEDING_MONTH[m.index];
+        if (m.index > Month.FEBRUARY.index) {
             if (DayDate.isLeapYear(y)) {
                 mm = mm + 1;
             }
         }
         final int dd = d;
         return yy + mm + dd + 1;
+    }
+
+    /**
+     * Calculate the day, month and year from the serial number.
+     */
+    private void calcDayMonthYear() {
+
+        // get the year from the serial date
+        final int days = this.serial - SERIAL_LOWER_BOUND;
+        // overestimated because we ignored leap days
+        final int overestimatedYYYY = 1900 + (days / 365);
+        final int leaps = DayDate.leapYearCount(overestimatedYYYY);
+        final int nonleapdays = days - leaps;
+        // underestimated because we overestimated years
+        int underestimatedYYYY = 1900 + (nonleapdays / 365);
+
+        if (underestimatedYYYY == overestimatedYYYY) {
+            this.year = underestimatedYYYY;
+        }
+        else {
+            int ss1 = calcSerial(1, Month.make(1), underestimatedYYYY);
+            while (ss1 <= this.serial) {
+                underestimatedYYYY = underestimatedYYYY + 1;
+                ss1 = calcSerial(1, Month.make(1), underestimatedYYYY);
+            }
+            this.year = underestimatedYYYY - 1;
+        }
+
+        final int ss2 = calcSerial(1, Month.make(1), this.year);
+
+        int[] daysToEndOfPrecedingMonth
+                = AGGREGATE_DAYS_TO_END_OF_PRECEDING_MONTH;
+
+        if (isLeapYear(this.year)) {
+            daysToEndOfPrecedingMonth
+                    = LEAP_YEAR_AGGREGATE_DAYS_TO_END_OF_PRECEDING_MONTH;
+        }
+
+        // get the month from the serial date
+        int mm = 1;
+        int sss = ss2 + daysToEndOfPrecedingMonth[mm] - 1;
+        while (sss < this.serial) {
+            mm = mm + 1;
+            sss = ss2 + daysToEndOfPrecedingMonth[mm] - 1;
+        }
+        this.month = Month.make(mm - 1);
+
+        // what's left is d(+1);
+        this.day = this.serial - ss2
+                - daysToEndOfPrecedingMonth[this.month.index] + 1;
+
     }
 
 }

@@ -247,7 +247,7 @@ public abstract class SerialDate implements Comparable,
      * @return <code>-1</code> if the string is not convertable, the day of 
      *         the week otherwise.
      */
-    public static int stringToWeekdayCode(String s) {
+    public static int stringToWeekdayCode(String s) {   // step01 : 대소문자 구분 없이 모두 통과해야함
 
         final String[] shortWeekdayNames 
             = DATE_FORMAT_SYMBOLS.getShortWeekdays();
@@ -256,11 +256,11 @@ public abstract class SerialDate implements Comparable,
         int result = -1;
         s = s.trim();
         for (int i = 0; i < weekDayNames.length; i++) {
-            if (s.equals(shortWeekdayNames[i])) {
+            if (s.equalsIgnoreCase(shortWeekdayNames[i])) {
                 result = i;
                 break;
             }
-            if (s.equals(weekDayNames[i])) {
+            if (s.equalsIgnoreCase(weekDayNames[i])) {
                 result = i;
                 break;
             }

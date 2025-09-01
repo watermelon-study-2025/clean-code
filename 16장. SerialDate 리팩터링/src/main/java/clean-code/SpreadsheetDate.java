@@ -88,6 +88,14 @@ public class SpreadsheetDate extends DayDate {
 
     public static final int MINIMUM_YEAR_SUPPORTED = 1900;
     public static final int MAXIMUM_YEAR_SUPPORTED = 9999;
+
+    static final int[] AGGREGATE_DAYS_TO_END_OF_PRECEDING_MONTH =
+            {0, 0, 31, 59, 90, 120, 151, 181, 212, 243, 273, 304, 334, 365};
+
+    static final int[] 
+        LEAP_YEAR_AGGREGATE_DAYS_TO_END_OF_PRECEDING_MONTH =
+            {0, 0, 31, 60, 91, 121, 152, 182, 213, 244, 274, 305, 335, 366};
+
     
     /** 
      * The day number (1-Jan-1900 = 2, 2-Jan-1900 = 3, ..., 31-Dec-9999 = 
@@ -458,7 +466,7 @@ public class SpreadsheetDate extends DayDate {
      */
     private int calcSerial(final int d, final Month m, final int y) {
         final int yy = ((y - 1900) * 365) + DayDate.leapYearCount(y - 1);
-        int mm = DayDate.AGGREGATE_DAYS_TO_END_OF_PRECEDING_MONTH[m.index];
+        int mm = AGGREGATE_DAYS_TO_END_OF_PRECEDING_MONTH[m.index];
         if (m.index > Month.FEBRUARY.index) {
             if (DayDate.isLeapYear(y)) {
                 mm = mm + 1;
@@ -466,57 +474,6 @@ public class SpreadsheetDate extends DayDate {
         }
         final int dd = d;
         return yy + mm + dd + 1;
-    }
-
-    /**
-     * Calculate the day, month and year from the serial number.
-     */
-    private void calcDayMonthYear() {
-
-        // get the year from the serial date
-        final int days = this.serial - EARLIEST_DATE_ORDINAL;
-        // overestimated because we ignored leap days
-        final int overestimatedYYYY = 1900 + (days / 365);
-        final int leaps = DayDate.leapYearCount(overestimatedYYYY);
-        final int nonleapdays = days - leaps;
-        // underestimated because we overestimated years
-        int underestimatedYYYY = 1900 + (nonleapdays / 365);
-
-        if (underestimatedYYYY == overestimatedYYYY) {
-            this.year = underestimatedYYYY;
-        }
-        else {
-            int ss1 = calcSerial(1, Month.make(1), underestimatedYYYY);
-            while (ss1 <= this.serial) {
-                underestimatedYYYY = underestimatedYYYY + 1;
-                ss1 = calcSerial(1, Month.make(1), underestimatedYYYY);
-            }
-            this.year = underestimatedYYYY - 1;
-        }
-
-        final int ss2 = calcSerial(1, Month.make(1), this.year);
-
-        int[] daysToEndOfPrecedingMonth
-                = AGGREGATE_DAYS_TO_END_OF_PRECEDING_MONTH;
-
-        if (isLeapYear(this.year)) {
-            daysToEndOfPrecedingMonth
-                    = LEAP_YEAR_AGGREGATE_DAYS_TO_END_OF_PRECEDING_MONTH;
-        }
-
-        // get the month from the serial date
-        int mm = 1;
-        int sss = ss2 + daysToEndOfPrecedingMonth[mm] - 1;
-        while (sss < this.serial) {
-            mm = mm + 1;
-            sss = ss2 + daysToEndOfPrecedingMonth[mm] - 1;
-        }
-        this.month = Month.make(mm - 1);
-
-        // what's left is d(+1);
-        this.day = this.serial - ss2
-                - daysToEndOfPrecedingMonth[this.month.index] + 1;
-
     }
 
 }

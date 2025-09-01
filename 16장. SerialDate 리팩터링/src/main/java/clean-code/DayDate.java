@@ -76,7 +76,7 @@ public abstract class DayDate implements Comparable, Serializable {
         NOVEMBER(11),
         DECEMBER(12);
 
-        private final int index;
+        public final int index;
 
         Month(int index) {
             this.index = index;
@@ -121,13 +121,6 @@ public abstract class DayDate implements Comparable, Serializable {
 
     private static final int[] LAST_DAY_OF_MONTH =
         {0, 31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31};
-
-    static final int[] AGGREGATE_DAYS_TO_END_OF_PRECEDING_MONTH =
-        {0, 0, 31, 59, 90, 120, 151, 181, 212, 243, 273, 304, 334, 365};
-
-    static final int[] 
-        LEAP_YEAR_AGGREGATE_DAYS_TO_END_OF_PRECEDING_MONTH =
-            {0, 0, 31, 60, 91, 121, 152, 182, 213, 244, 274, 305, 335, 366};
 
     public static final int FIRST_WEEK_IN_MONTH = 1;
     public static final int SECOND_WEEK_IN_MONTH = 2;

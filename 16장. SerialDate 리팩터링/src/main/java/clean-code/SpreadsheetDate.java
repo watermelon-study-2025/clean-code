@@ -256,19 +256,9 @@ public class SpreadsheetDate extends DayDate {
     public int getDayOfMonth() {
         return this.day;
     }
-
-    /**
-     * Returns a code representing the day of the week.
-     * <P>
-     * The codes are defined in the {@link DayDate} class as: 
-     * <code>SUNDAY</code>, <code>MONDAY</code>, <code>TUESDAY</code>, 
-     * <code>WEDNESDAY</code>, <code>THURSDAY</code>, <code>FRIDAY</code>, and 
-     * <code>SATURDAY</code>.
-     *
-     * @return A code representing the day of the week.
-     */
-    public Day getDayOfWeek() {
-        return Day.make((this.serial + 6) % 7 + 1);
+    
+    protected Day getDayOfWeekForOrdinalZero() {
+        return Day.SATURDAY;
     }
 
     /**

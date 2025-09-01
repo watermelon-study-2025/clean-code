@@ -39,9 +39,6 @@ package org.jfree.date;
 import java.io.Serializable;
 import java.text.*;
 
-import main.java.clean-code.Day;
-import main.java.clean-code.DayDateFactory;
-
 /**
  *  An abstract class that defines our requirements for manipulating dates,
  *  without tying down a particular implementation.
@@ -125,34 +122,8 @@ public abstract class DayDate implements Comparable, Serializable {
         }
     }
 
-    /**
-     * Returns an array of month names.
-     *
-     * @return an array of month names.
-     */
-    public static String[] getMonths() {
-
-        return getMonths(false);
-
-    }
-
-    /**
-     * Returns an array of month names.
-     *
-     * @param shortened  a flag indicating that shortened month names should 
-     *                   be returned.
-     *
-     * @return an array of month names.
-     */
-    public static String[] getMonths(boolean shortened) {
-
-        if (shortened) {
-            return DATE_FORMAT_SYMBOLS.getShortMonths();
-        }
-        else {
-            return DATE_FORMAT_SYMBOLS.getMonths();
-        }
-
+    public static String[] getMonthNames() {
+        return DATE_FORMAT_SYMBOLS.getMonths();
     }
 
     /**

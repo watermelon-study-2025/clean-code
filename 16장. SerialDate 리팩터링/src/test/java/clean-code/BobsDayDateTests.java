@@ -363,19 +363,19 @@ public class BobsDayDateTests extends TestCase {
 
     public void testEndOfCurrentMonth() throws Exception {
         DayDate d = DayDateFactory.makeDate(2);
-        assertEquals(d(31, Month.JANUARY, 2006), d.getEndOfCurrentMonth(d(1, Month.JANUARY, 2006)));
-        assertEquals(d(28, Month.FEBRUARY, 2006), d.getEndOfCurrentMonth(d(1, Month.FEBRUARY, 2006)));
-        assertEquals(d(31, Month.MARCH, 2006), d.getEndOfCurrentMonth(d(1, Month.MARCH, 2006)));
-        assertEquals(d(30, Month.APRIL, 2006), d.getEndOfCurrentMonth(d(1, Month.APRIL, 2006)));
-        assertEquals(d(31, Month.MAY, 2006), d.getEndOfCurrentMonth(d(1, Month.MAY, 2006)));
-        assertEquals(d(30, Month.JUNE, 2006), d.getEndOfCurrentMonth(d(1, Month.JUNE, 2006)));
-        assertEquals(d(31, Month.JULY, 2006), d.getEndOfCurrentMonth(d(1, Month.JULY, 2006)));
-        assertEquals(d(31, Month.AUGUST, 2006), d.getEndOfCurrentMonth(d(1, Month.AUGUST, 2006)));
-        assertEquals(d(30, Month.SEPTEMBER, 2006), d.getEndOfCurrentMonth(d(1, Month.SEPTEMBER, 2006)));
-        assertEquals(d(31, Month.OCTOBER, 2006), d.getEndOfCurrentMonth(d(1, Month.OCTOBER, 2006)));
-        assertEquals(d(30, Month.NOVEMBER, 2006), d.getEndOfCurrentMonth(d(1, Month.NOVEMBER, 2006)));
-        assertEquals(d(31, Month.DECEMBER, 2006), d.getEndOfCurrentMonth(d(1, Month.DECEMBER, 2006)));
-        assertEquals(d(29, Month.FEBRUARY, 2008), d.getEndOfCurrentMonth(d(1, Month.FEBRUARY, 2008)));
+        assertEquals(d(31, Month.JANUARY, 2006), d(1, Month.JANUARY, 2006).getEndOfCurrentMonth());
+        assertEquals(d(28, Month.FEBRUARY, 2006), d(1, Month.FEBRUARY, 2006).getEndOfCurrentMonth());
+        assertEquals(d(31, Month.MARCH, 2006), d(1, Month.MARCH, 2006).getEndOfCurrentMonth());
+        assertEquals(d(30, Month.APRIL, 2006), d(1, Month.APRIL, 2006).getEndOfCurrentMonth());
+        assertEquals(d(31, Month.MAY, 2006), d(1, Month.MAY, 2006).getEndOfCurrentMonth());
+        assertEquals(d(30, Month.JUNE, 2006), d(1, Month.JUNE, 2006).getEndOfCurrentMonth());
+        assertEquals(d(31, Month.JULY, 2006), d(1, Month.JULY, 2006).getEndOfCurrentMonth());
+        assertEquals(d(31, Month.AUGUST, 2006), d(1, Month.AUGUST, 2006).getEndOfCurrentMonth());
+        assertEquals(d(30, Month.SEPTEMBER, 2006), d(1, Month.SEPTEMBER, 2006).getEndOfCurrentMonth());
+        assertEquals(d(31, Month.OCTOBER, 2006), d(1, Month.OCTOBER, 2006).getEndOfCurrentMonth());
+        assertEquals(d(30, Month.NOVEMBER, 2006), d(1, Month.NOVEMBER, 2006).getEndOfCurrentMonth());
+        assertEquals(d(31, Month.DECEMBER, 2006), d(1, Month.DECEMBER, 2006).getEndOfCurrentMonth());
+        assertEquals(d(29, Month.FEBRUARY, 2008), d(1, Month.FEBRUARY, 2008).getEndOfCurrentMonth());
     }
 
     public void testWeekInMonthToString() throws Exception {

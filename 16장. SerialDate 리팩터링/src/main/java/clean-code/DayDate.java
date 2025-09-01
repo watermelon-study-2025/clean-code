@@ -90,7 +90,6 @@ public abstract class DayDate implements Comparable, Serializable {
         }
     }
     
-    /** Date format symbols. */
     public static final DateFormatSymbols
         DATE_FORMAT_SYMBOLS = new SimpleDateFormat().getDateFormatSymbols();
 
@@ -100,116 +99,50 @@ public abstract class DayDate implements Comparable, Serializable {
     /** The serial number for 31 December 9999. */
     public static final int SERIAL_UPPER_BOUND = 2958465;
 
-    /** The lowest year value supported by this date format. */
     public static final int MINIMUM_YEAR_SUPPORTED = 1900;
-
-    /** The highest year value supported by this date format. */
     public static final int MAXIMUM_YEAR_SUPPORTED = 9999;
 
-    /** Useful constant for Monday. Equivalent to java.util.Calendar.MONDAY. */
     public static final int MONDAY = Calendar.MONDAY;
-
-    /** 
-     * Useful constant for Tuesday. Equivalent to java.util.Calendar.TUESDAY. 
-     */
     public static final int TUESDAY = Calendar.TUESDAY;
-
-    /** 
-     * Useful constant for Wednesday. Equivalent to 
-     * java.util.Calendar.WEDNESDAY. 
-     */
     public static final int WEDNESDAY = Calendar.WEDNESDAY;
-
-    /** 
-     * Useful constant for Thrusday. Equivalent to java.util.Calendar.THURSDAY. 
-     */
     public static final int THURSDAY = Calendar.THURSDAY;
-
-    /** Useful constant for Friday. Equivalent to java.util.Calendar.FRIDAY. */
     public static final int FRIDAY = Calendar.FRIDAY;
-
-    /** 
-     * Useful constant for Saturday. Equivalent to java.util.Calendar.SATURDAY.
-     */
     public static final int SATURDAY = Calendar.SATURDAY;
-
-    /** Useful constant for Sunday. Equivalent to java.util.Calendar.SUNDAY. */
     public static final int SUNDAY = Calendar.SUNDAY;
 
-    /** The number of days in each month in non leap years. */
     static final int[] LAST_DAY_OF_MONTH =
         {0, 31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31};
 
-    /** The number of days in a (non-leap) year up to the end of each month. */
     static final int[] AGGREGATE_DAYS_TO_END_OF_MONTH =
         {0, 31, 59, 90, 120, 151, 181, 212, 243, 273, 304, 334, 365};
 
-    /** The number of days in a year up to the end of the preceding month. */
     static final int[] AGGREGATE_DAYS_TO_END_OF_PRECEDING_MONTH =
         {0, 0, 31, 59, 90, 120, 151, 181, 212, 243, 273, 304, 334, 365};
 
-    /** The number of days in a leap year up to the end of each month. */
     static final int[] LEAP_YEAR_AGGREGATE_DAYS_TO_END_OF_MONTH =
         {0, 31, 60, 91, 121, 152, 182, 213, 244, 274, 305, 335, 366};
 
-    /** 
-     * The number of days in a leap year up to the end of the preceding month. 
-     */
     static final int[] 
         LEAP_YEAR_AGGREGATE_DAYS_TO_END_OF_PRECEDING_MONTH =
             {0, 0, 31, 60, 91, 121, 152, 182, 213, 244, 274, 305, 335, 366};
 
-    /** A useful constant for referring to the first week in a month. */
     public static final int FIRST_WEEK_IN_MONTH = 1;
-
-    /** A useful constant for referring to the second week in a month. */
     public static final int SECOND_WEEK_IN_MONTH = 2;
-
-    /** A useful constant for referring to the third week in a month. */
     public static final int THIRD_WEEK_IN_MONTH = 3;
-
-    /** A useful constant for referring to the fourth week in a month. */
     public static final int FOURTH_WEEK_IN_MONTH = 4;
-
-    /** A useful constant for referring to the last week in a month. */
     public static final int LAST_WEEK_IN_MONTH = 0;
 
-    /** Useful range constant. */
     public static final int INCLUDE_NONE = 0;
-
-    /** Useful range constant. */
     public static final int INCLUDE_FIRST = 1;
-
-    /** Useful range constant. */
     public static final int INCLUDE_SECOND = 2;
-
-    /** Useful range constant. */
     public static final int INCLUDE_BOTH = 3;
 
-    /** 
-     * Useful constant for specifying a day of the week relative to a fixed 
-     * date. 
-     */
     public static final int PRECEDING = -1;
-
-    /** 
-     * Useful constant for specifying a day of the week relative to a fixed 
-     * date. 
-     */
     public static final int NEAREST = 0;
-
-    /** 
-     * Useful constant for specifying a day of the week relative to a fixed 
-     * date. 
-     */
     public static final int FOLLOWING = 1;
 
-    /** A description for the date. */
     private String description;
 
-    /**
-     * Default constructor.
-     */
     protected DayDate() {
     }
 

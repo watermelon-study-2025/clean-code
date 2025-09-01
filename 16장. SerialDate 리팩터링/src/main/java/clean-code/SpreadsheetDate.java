@@ -85,6 +85,9 @@ public class SpreadsheetDate extends DayDate {
 
     public static final int EARLIEST_DATE_ORDINAL = 2;      // 1/1/1900
     public static final int LATEST_DATE_ORDINAL = 2958465;  // 12/31/9999
+
+    public static final int MINIMUM_YEAR_SUPPORTED = 1900;
+    public static final int MAXIMUM_YEAR_SUPPORTED = 9999;
     
     /** 
      * The day number (1-Jan-1900 = 2, 2-Jan-1900 = 3, ..., 31-Dec-9999 = 

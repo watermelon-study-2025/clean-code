@@ -115,7 +115,7 @@ public abstract class DayDate implements Comparable, Serializable {
     }
 
     public DayDate plusDays(int days) {
-        return DayDateFactory.makeDate(toOrdinal() + days);
+        return DayDateFactory.makeDate(getOrdinalDay() + days);
     }
 
     public DayDate plusMonths(int months) {
@@ -178,7 +178,7 @@ public abstract class DayDate implements Comparable, Serializable {
      *
      * @return the serial number for the date.
      */
-    public abstract int toOrdinal();
+    public abstract int getOrdinalDay();
 
     /**
      * Returns a java.util.Date.  Since java.util.Date has more precision than

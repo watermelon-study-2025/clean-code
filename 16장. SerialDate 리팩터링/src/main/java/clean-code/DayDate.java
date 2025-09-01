@@ -40,12 +40,6 @@ import java.io.Serializable;
 import java.text.*;
 import java.util.*;
 
-import main.java.clean
-import main.java.clean-code.DayDateFactory;
-import main.java.clean-code.DayDateFactory;
-import main.java.clean-code.DayDateFactory;
-import main.java.clean-code.DayDateFactory;-code.DayDateFactory;
-
 /**
  *  An abstract class that defines our requirements for manipulating dates,
  *  without tying down a particular implementation.
@@ -153,39 +147,19 @@ public abstract class DayDate implements Comparable, Serializable {
         }
     }
 
-    private String description;
-
-    protected DayDate() {
-    }
-
-    /**
-     * Converts the supplied string to a day of the week.
-     *
-     * @param s  a string representing the day of the week.
-     *
-     * @return <code>-1</code> if the string is not convertable, the day of 
-     *         the week otherwise.
-     */
     public static Day stringToWeekday(String s) {   // step01 : 대소문자 구분 없이 모두 통과해야함
 
-        final String[] shortWeekdayNames 
-            = DATE_FORMAT_SYMBOLS.getShortWeekdays();
+        final String[] shortWeekdayNames = DATE_FORMAT_SYMBOLS.getShortWeekdays();
         final String[] weekDayNames = DATE_FORMAT_SYMBOLS.getWeekdays();
 
-        int result = -1;
         s = s.trim();
-        for (int i = 0; i < weekDayNames.length; i++) {
-            if (s.equalsIgnoreCase(shortWeekdayNames[i])) {
-                result = i;
-                break;
-            }
-            if (s.equalsIgnoreCase(weekDayNames[i])) {
-                result = i;
-                break;
+        for (Day day : Day.values()) {
+            if (s.equalsIgnoreCase(shortWeekdayNames[day.index]) ||
+                    s.equalsIgnoreCase(weekDayNames[day.index])) {
+                return day;
             }
         }
-        return Day.make(result);
-
+        throw new IllegalArgumentException(String.format("%s is not a valid weekday string", s));
     }
 
     /**
@@ -607,27 +581,6 @@ public abstract class DayDate implements Comparable, Serializable {
      * @return this as <code>java.util.Date</code>.
      */
     public abstract java.util.Date toDate();
-
-    /**
-     * Returns the description that is attached to the date.  It is not 
-     * required that a date have a description, but for some applications it 
-     * is useful.
-     *
-     * @return The description (possibly <code>null</code>).
-     */
-    public String getDescription() {
-        return this.description;
-    }
-
-    /**
-     * Sets the description for the date.
-     *
-     * @param description  the description for this date (<code>null</code> 
-     *                     permitted).
-     */
-    public void setDescription(final String description) {
-        this.description = description;
-    }
 
     /**
      * Converts the date to a string.

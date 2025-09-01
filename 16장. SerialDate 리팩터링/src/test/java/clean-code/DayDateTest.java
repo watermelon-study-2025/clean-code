@@ -294,7 +294,7 @@ public class DayDateTest extends TestCase {
      */
     public void test1096282() {
         DayDate d = DayDateFactory.makeDate(29, 2, 2004);
-        d = DayDate.addYears(1, d);
+        d = d.addYears(1);
         DayDate expected = DayDateFactory.makeDate(28, 2, 2005);
         assertTrue(d.isOn(expected));
     }

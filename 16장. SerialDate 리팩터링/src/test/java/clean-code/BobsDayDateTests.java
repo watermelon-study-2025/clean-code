@@ -377,15 +377,9 @@ public class BobsDayDateTests extends TestCase {
     }
 
     public void testRelativeToString() throws Exception {
-        assertEquals("Preceding", relativeToString(PRECEDING));
-        assertEquals("Nearest", relativeToString(NEAREST));
-        assertEquals("Following", relativeToString(FOLLOWING));
-
-        try {
-            relativeToString(-1000);
-            fail("Invalid relative code should throw exception");
-        } catch (IllegalArgumentException e) {  // step05 : 오류 문자열 반환 대신 예외 발생 처리
-        }
+        assertEquals("Preceding", relativeToString(WeekdayRange.LAST));
+        assertEquals("Nearest", relativeToString(WeekdayRange.NEAREST));
+        assertEquals("Following", relativeToString(WeekdayRange.NEXT));
     }
 
     public void testMakeDateFromDDMMYYY() throws Exception {

@@ -42,6 +42,8 @@ import java.util.*;
 
 import main.java.clean
 import main.java.clean-code.DayDateFactory;
+import main.java.clean-code.DayDateFactory;
+import main.java.clean-code.DayDateFactory;
 import main.java.clean-code.DayDateFactory;-code.DayDateFactory;
 
 /**
@@ -142,9 +144,14 @@ public abstract class DayDate implements Comparable, Serializable {
         }
     }
 
-    public static final int PRECEDING = -1;
-    public static final int NEAREST = 0;
-    public static final int FOLLOWING = 1;
+    public enum WeekdayRange {
+        LAST(-1), NEAREST(0), NEXT(1);
+        public final int index;
+
+        WeekdayRange(int index) {
+            this.index = index;
+        }
+    }
 
     private String description;
 
@@ -571,12 +578,12 @@ public abstract class DayDate implements Comparable, Serializable {
      *
      * @return a string representing the supplied 'relative'.
      */
-    public static String relativeToString(final int relative) {
+    public static String relativeToString(final WeekdayRange relative) {
 
         switch (relative) {
-            case DayDate.PRECEDING : return "Preceding";
-            case DayDate.NEAREST : return "Nearest";
-            case DayDate.FOLLOWING : return "Following";
+            case LAST : return "Preceding";
+            case NEAREST : return "Nearest";
+            case NEXT : return "Following";
             default : 
                 throw new IllegalArgumentException("ERROR : Relative To String");   // step05 : 오류 문자열 반환 대신 예외 발생 처리
         }

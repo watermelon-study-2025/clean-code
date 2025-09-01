@@ -82,6 +82,9 @@ public class SpreadsheetDate extends DayDate {
 
     /** For serialization. */
     private static final long serialVersionUID = -2039586705374454461L;
+
+    public static final int EARLIEST_DATE_ORDINAL = 2;      // 1/1/1900
+    public static final int LATEST_DATE_ORDINAL = 2958465;  // 12/31/9999
     
     /** 
      * The day number (1-Jan-1900 = 2, 2-Jan-1900 = 3, ..., 31-Dec-9999 = 
@@ -150,7 +153,7 @@ public class SpreadsheetDate extends DayDate {
      */
     public SpreadsheetDate(final int serial) {
 
-        if ((serial >= SERIAL_LOWER_BOUND) && (serial <= SERIAL_UPPER_BOUND)) {
+        if ((serial >= EARLIEST_DATE_ORDINAL) && (serial <= LATEST_DATE_ORDINAL)) {
             this.serial = serial;
         }
         else {
@@ -160,7 +163,7 @@ public class SpreadsheetDate extends DayDate {
 
         // the day-month-year needs to be synchronised with the serial number...
       // get the year from the serial date
-      final int days = this.serial - SERIAL_LOWER_BOUND;
+      final int days = this.serial - EARLIEST_DATE_ORDINAL;
       // overestimated because we ignored leap days
       final int overestimatedYYYY = 1900 + (days / 365);
       final int leaps = DayDate.leapYearCount(overestimatedYYYY);
@@ -468,7 +471,7 @@ public class SpreadsheetDate extends DayDate {
     private void calcDayMonthYear() {
 
         // get the year from the serial date
-        final int days = this.serial - SERIAL_LOWER_BOUND;
+        final int days = this.serial - EARLIEST_DATE_ORDINAL;
         // overestimated because we ignored leap days
         final int overestimatedYYYY = 1900 + (days / 365);
         final int leaps = DayDate.leapYearCount(overestimatedYYYY);

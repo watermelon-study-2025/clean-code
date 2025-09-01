@@ -291,19 +291,6 @@ public class SpreadsheetDate extends DayDate {
     }
 
     /**
-     * Returns the difference (in days) between this date and the specified 
-     * 'other' date.
-     *
-     * @param other  the date being compared to.
-     *
-     * @return The difference (in days) between this date and the specified 
-     *         'other' date.
-     */
-    public int compare(final DayDate other) {
-        return getOrdinalDay() - other.getOrdinalDay();
-    }
-
-    /**
      * Implements the method required by the Comparable interface.
      * 
      * @param other  the other object (usually another DayDate).
@@ -312,7 +299,7 @@ public class SpreadsheetDate extends DayDate {
      *         is less than, equal to, or greater than the specified object.
      */
     public int compareTo(final Object other) {
-        return compare((DayDate) other);    
+        return daysSince((DayDate) other);    
     }
     
     /**

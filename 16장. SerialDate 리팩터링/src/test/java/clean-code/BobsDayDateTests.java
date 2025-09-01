@@ -378,6 +378,14 @@ public class BobsDayDateTests extends TestCase {
         assertEquals(d(29, Month.FEBRUARY, 2008), d(1, Month.FEBRUARY, 2008).getEndOfCurrentMonth());
     }
 
+    public void testDaysSince() throws Exception {
+        DayDate newYears = d(1, Month.JANUARY, 1900);
+        assertEquals(1, d(2, Month.JANUARY, 1900).daysSince(newYears));
+        assertEquals(31, d(1, Month.FEBRUARY, 1900).daysSince(newYears));
+        assertEquals(365, d(1, Month.JANUARY, 1901).daysSince(newYears));
+        assertEquals(5 * 365, d(31, Month.DECEMBER, 1904).daysSince(newYears));
+    }
+
     public void testMakeDateFromDDMMYYY() throws Exception {
         DayDate date = DayDateFactory.makeDate(1, Month.JANUARY, 1900);
         assertEquals(1, date.getDayOfMonth());

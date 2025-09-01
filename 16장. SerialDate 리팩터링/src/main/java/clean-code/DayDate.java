@@ -40,9 +40,6 @@ import java.io.Serializable;
 import java.text.*;
 import java.time.Month;
 
-import main.java.clean-code.Day;
-import main.java.clean-code.DayDateFactory;
-
 /**
  *  An abstract class that defines our requirements for manipulating dates,
  *  without tying down a particular implementation.
@@ -154,30 +151,12 @@ public abstract class DayDate implements Comparable, Serializable {
         return DayDateFactory.makeDate(resultDay, getMonth(), resultYear);
     }
 
-    /**
-     * Returns the latest date that falls on the specified day-of-the-week and 
-     * is BEFORE the base date.
-     *
-     * @param targetWeekday  a code for the target day-of-the-week.
-     * @param base  the base date.
-     *
-     * @return the latest date that falls on the specified day-of-the-week and 
-     *         is BEFORE the base date.
-     */
-    public static DayDate getPreviousDayOfWeek(Day targetWeekday, 
-                                                  DayDate base) {
-
-        int adjust;
-        int baseDOW = base.getDayOfWeek();
-        if (baseDOW > targetWeekday.index) {
-            adjust = Math.min(0, targetWeekday.index - baseDOW);
+    public DayDate getPreviousDayOfWeek(Day targetWeekday) {
+        int offsetToTarget = targetDayOfWeek.index - getDayOfWeek().index;
+        if(offsetToTarget >= 0) {
+            offsetToTarget -= 7;
         }
-        else {
-            adjust = -7 + Math.max(0, targetWeekday.index - baseDOW);
-        }
-
-        return base.plusDays(adjust);
-
+        return plusDays(offsetToTarget);
     }
 
     /**
@@ -194,7 +173,7 @@ public abstract class DayDate implements Comparable, Serializable {
                                                    DayDate base) {
 
         int adjust;
-        int baseDOW = base.getDayOfWeek();
+        int baseDOW = base.getDayOfWeek().index;
         if (baseDOW >= targetWeekday.index) { // step03 : 버그 수정 (연말 -> 연초 넘어갈 때)
             adjust = 7 + Math.min(0, targetWeekday.index - baseDOW);
         }
@@ -218,7 +197,7 @@ public abstract class DayDate implements Comparable, Serializable {
     public static DayDate getNearestDayOfWeek(Day targetDOW,  
                                                  DayDate base) {
 
-        int delta = targetDOW.index - base.getDayOfWeek();    // step04 : 버그 수정 (과거 날짜만 나오는 문제)
+        int delta = targetDOW.index - base.getDayOfWeek().index;    // step04 : 버그 수정 (과거 날짜만 나오는 문제)
         int positiveDelta = delta + 7;
         int adjust = positiveDelta % 7;
         if (adjust > 3) {
@@ -340,7 +319,7 @@ public abstract class DayDate implements Comparable, Serializable {
      *
      * @return the day of the week.
      */
-    public abstract int getDayOfWeek();
+    public abstract Day getDayOfWeek();
 
     /**
      * Returns the difference (in days) between this date and the specified 
@@ -436,19 +415,6 @@ public abstract class DayDate implements Comparable, Serializable {
      */
     public abstract boolean isInRange(DayDate d1, DayDate d2, 
                                       DateInterval include);
-
-    /**
-     * Returns the latest date that falls on the specified day-of-the-week and
-     * is BEFORE this date.
-     *
-     * @param targetDOW  a code for the target day-of-the-week.
-     *
-     * @return the latest date that falls on the specified day-of-the-week and
-     *         is BEFORE this date.
-     */
-    public DayDate getPreviousDayOfWeek(Day targetDOW) {
-        return getPreviousDayOfWeek(targetDOW, this);
-    }
 
     /**
      * Returns the earliest date that falls on the specified day-of-the-week

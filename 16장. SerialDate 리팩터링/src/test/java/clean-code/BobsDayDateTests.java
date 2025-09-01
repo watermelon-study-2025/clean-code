@@ -291,10 +291,10 @@ public class BobsDayDateTests extends TestCase {
     }
 
     public void testGetPreviousDayOfWeek() throws Exception {
-        assertEquals(d(24, Month.FEBRUARY, 2006), getPreviousDayOfWeek(Day.FRIDAY, d(1, Month.MARCH, 2006)));
-        assertEquals(d(22, Month.FEBRUARY, 2006), getPreviousDayOfWeek(Day.WEDNESDAY, d(1, Month.MARCH, 2006)));
-        assertEquals(d(29, Month.FEBRUARY, 2004), getPreviousDayOfWeek(Day.SUNDAY, d(3, Month.MARCH, 2004)));
-        assertEquals(d(29, Month.DECEMBER, 2004), getPreviousDayOfWeek(Day.WEDNESDAY, d(5, Month.JANUARY, 2005)));
+        assertEquals(d(24, Month.FEBRUARY, 2006), d(1, Month.MARCH, 2006).getPreviousDayOfWeek(Day.FRIDAY));
+        assertEquals(d(22, Month.FEBRUARY, 2006), d(1, Month.MARCH, 2006).getPreviousDayOfWeek(Day.WEDNESDAY));
+        assertEquals(d(29, Month.FEBRUARY, 2004), d(3, Month.MARCH, 2004).getPreviousDayOfWeek(Day.SUNDAY));
+        assertEquals(d(29, Month.DECEMBER, 2004), d(5, Month.JANUARY, 2005).getPreviousDayOfWeek(Day.WEDNESDAY));
     }
 
     public void testGetFollowingDayOfWeek() throws Exception {

@@ -278,8 +278,8 @@ public class SpreadsheetDate extends DayDate {
      *
      * @return A code representing the day of the week.
      */
-    public int getDayOfWeek() {
-        return (this.serial + 6) % 7 + 1;
+    public Day getDayOfWeek() {
+        return Day.make((this.serial + 6) % 7 + 1);
     }
 
     /**

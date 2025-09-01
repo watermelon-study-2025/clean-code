@@ -7,7 +7,7 @@ public abstract class DayDateFactory {
     }
 
     protected abstract DayDate _makeDate(int ordinal);
-    protected abstract DayDate _makeDate(int day, DayDate.Month month, int year);
+    protected abstract DayDate _makeDate(int day, Month month, int year);
     protected abstract DayDate _makeDate(int day, int month, int year);
     protected abstract DayDate _makeDate(java.util.Date date);
     protected abstract int _getMinumumYear();
@@ -18,7 +18,7 @@ public abstract class DayDateFactory {
         return factory._makeDate(ordinal);
     }
 
-    public static DayDate makeDate(int day, DayDate.Month month, int year)
+    public static DayDate makeDate(int day, Month month, int year)
     {
         return factory._makeDate(day, month, year);
     }

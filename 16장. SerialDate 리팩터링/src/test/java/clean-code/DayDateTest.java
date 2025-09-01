@@ -56,6 +56,8 @@ import java.io.ObjectOutputStream;
 import junit.framework.Test;
 import junit.framework.TestCase;
 import junit.framework.TestSuite;
+import main.java.clean-code.Day;
+import main.java.clean-code.DayDateFactory;
 
 import org.jfree.date.*;
 
@@ -89,7 +91,7 @@ public class DayDateTest extends TestCase {
      * Problem set up.
      */
     protected void setUp() {
-        this.nov9Y2001 = DayDateFactory.makeDate(9, DayDate.Month.NOVEMBER, 2001);
+        this.nov9Y2001 = DayDateFactory.makeDate(9, Month.NOVEMBER, 2001);
     }
 
     /**
@@ -105,16 +107,16 @@ public class DayDateTest extends TestCase {
      * A test case for a reported bug, now fixed.
      */
     public void testAddMonthsTo5Oct2003() {
-        final DayDate d1 = DayDateFactory.makeDate(5, DayDate.Month.OCTOBER, 2003);
+        final DayDate d1 = DayDateFactory.makeDate(5, Month.OCTOBER, 2003);
         final DayDate d2 = DayDate.addMonths(2, d1);
-        assertEquals(d2, DayDateFactory.makeDate(5, DayDate.Month.DECEMBER, 2003));
+        assertEquals(d2, DayDateFactory.makeDate(5, Month.DECEMBER, 2003));
     }
 
     /**
      * A test case for a reported bug, now fixed.
      */
     public void testAddMonthsTo1Jan2003() {
-        final DayDate d1 = DayDateFactory.makeDate(1, DayDate.Month.JANUARY, 2003);
+        final DayDate d1 = DayDateFactory.makeDate(1, Month.JANUARY, 2003);
         final DayDate d2 = DayDate.addMonths(0, d1);
         assertEquals(d2, d1);
     }
@@ -153,7 +155,7 @@ public class DayDateTest extends TestCase {
      * The Monday nearest to 22nd January 1970 falls on the 19th.
      */
     public void testMondayNearest22Jan1970() {
-        DayDate jan22Y1970 = DayDateFactory.makeDate(22, DayDate.Month.JANUARY, 1970);
+        DayDate jan22Y1970 = DayDateFactory.makeDate(22, Month.JANUARY, 1970);
         DayDate mondayNearest = DayDate.getNearestDayOfWeek(Day.MONDAY, jan22Y1970);
         assertEquals(19, mondayNearest.getDayOfMonth());
     }
@@ -187,19 +189,19 @@ public class DayDateTest extends TestCase {
     }
 
     /**
-     * Test the conversion of a string to a DayDate.Month.  Note that this test will fail if the default
+     * Test the conversion of a string to a Month.  Note that this test will fail if the default
      * locale doesn't use English month names...devise a better test!
      */
     public void testStringToMonth() {
 
-        DayDate.Month m = DayDate.stringToMonth("January");
-        assertEquals(DayDate.Month.JANUARY, m);
+        Month m = DayDate.Month.parse("January");
+        assertEquals(Month.JANUARY, m);
 
-        m = DayDate.stringToMonth(" January ");
-        assertEquals(DayDate.Month.JANUARY, m);
+        m = DayDate.Month.parse(" January ");
+        assertEquals(Month.JANUARY, m);
 
-        m = DayDate.stringToMonth("Jan");
-        assertEquals(DayDate.Month.JANUARY, m);
+        m = DayDate.Month.parse("Jan");
+        assertEquals(Month.JANUARY, m);
 
     }
 
@@ -208,7 +210,7 @@ public class DayDateTest extends TestCase {
      */
     public void testMonthCodeToString() {
 
-        final String test = DayDate.monthToString(DayDate.Month.DECEMBER);
+        final String test = Month.DECEMBER.toString();
         assertEquals("December", test);
 
     }
@@ -305,17 +307,17 @@ public class DayDateTest extends TestCase {
         
         DayDate d2 = DayDate.addMonths(1, d1);
         assertEquals(30, d2.getDayOfMonth());
-        assertEquals(DayDate.Month.JUNE, d2.getMonth());
+        assertEquals(Month.JUNE, d2.getMonth());
         assertEquals(2004, d2.getYYYY());
         
         DayDate d3 = DayDate.addMonths(2, d1);
         assertEquals(31, d3.getDayOfMonth());
-        assertEquals(DayDate.Month.JULY, d3.getMonth());
+        assertEquals(Month.JULY, d3.getMonth());
         assertEquals(2004, d3.getYYYY());
         
         DayDate d4 = DayDate.addMonths(1, DayDate.addMonths(1, d1));
         assertEquals(30, d4.getDayOfMonth());
-        assertEquals(DayDate.Month.JULY, d4.getMonth());
+        assertEquals(Month.JULY, d4.getMonth());
         assertEquals(2004, d4.getYYYY());
     }
 }

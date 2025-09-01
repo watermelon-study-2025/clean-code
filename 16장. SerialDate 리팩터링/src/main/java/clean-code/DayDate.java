@@ -71,6 +71,18 @@ public abstract class DayDate implements Comparable, Serializable {
         WeekInMonth(int index) {
             this.index = index;
         }
+
+        public String toString() {
+            switch (this) {
+                case FIRST : return "First";
+                case SECOND : return "Second";
+                case THIRD : return "Third";
+                case FOURTH : return "Fourth";
+                case LAST : return "Last";
+                default :
+                    throw new IllegalArgumentException("DayDate.weekInMonthToString(): invalid code.");
+            }
+        }
     }
 
     public enum DateInterval {
@@ -182,29 +194,6 @@ public abstract class DayDate implements Comparable, Serializable {
         int year = getYear();
         int lastDay = lastDayOfMonth(month, year);
         return DayDateFactory.makeDate(last, month, year);
-    }
-
-    /**
-     * Returns a string corresponding to the week-in-the-month code.
-     * <P>
-     * Need to find a better approach.
-     *
-     * @param count  an integer code representing the week-in-the-month.
-     *
-     * @return a string corresponding to the week-in-the-month code.
-     */
-    public static String weekInMonthToString(WeekInMonth count) {
-
-        switch (count) {
-            case FIRST : return "First";
-            case SECOND : return "Second";
-            case THIRD : return "Third";
-            case FOURTH : return "Fourth";
-            case LAST : return "Last";
-            default :
-                throw new IllegalArgumentException("DayDate.weekInMonthToString(): invalid code.");  // step05 : 오류 문자열 반환 대신 예외 발생 처리
-        }
-
     }
 
     /**

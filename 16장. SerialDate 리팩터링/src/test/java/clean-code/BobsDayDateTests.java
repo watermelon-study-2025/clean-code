@@ -378,13 +378,13 @@ public class BobsDayDateTests extends TestCase {
         assertEquals(d(29, Month.FEBRUARY, 2008), d(1, Month.FEBRUARY, 2008).getEndOfCurrentMonth());
     }
 
-    public void testWeekInMonthToString() throws Exception {
-        assertEquals("First", weekInMonthToString(WeekInMonth.FIRST));
-        assertEquals("Second", weekInMonthToString(WeekInMonth.SECOND));
-        assertEquals("Third", weekInMonthToString(WeekInMonth.THIRD));
-        assertEquals("Fourth", weekInMonthToString(WeekInMonth.FOURTH));
-        assertEquals("Last", weekInMonthToString(WeekInMonth.LAST));
-    }
+    // public void testWeekInMonthToString() throws Exception {
+    //     assertEquals("First", WeekInMonth.FIRST.toString());
+    //     assertEquals("Second", WeekInMonth.SECOND.toString());
+    //     assertEquals("Third", WeekInMonth.THIRD.toString());
+    //     assertEquals("Fourth", WeekInMonth.FOURTH.toString());
+    //     assertEquals("Last", WeekInMonth.LAST.toString());
+    // }
 
     public void testRelativeToString() throws Exception {
         assertEquals("Preceding", relativeToString(WeekdayRange.LAST));

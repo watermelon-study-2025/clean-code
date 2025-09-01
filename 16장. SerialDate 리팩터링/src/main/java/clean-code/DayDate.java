@@ -159,29 +159,12 @@ public abstract class DayDate implements Comparable, Serializable {
         return plusDays(offsetToTarget);
     }
 
-    /**
-     * Returns the earliest date that falls on the specified day-of-the-week
-     * and is AFTER the base date.
-     *
-     * @param targetWeekday  a code for the target day-of-the-week.
-     * @param base  the base date.
-     *
-     * @return the earliest date that falls on the specified day-of-the-week 
-     *         and is AFTER the base date.
-     */
-    public static DayDate getFollowingDayOfWeek(Day targetWeekday, 
-                                                   DayDate base) {
-
-        int adjust;
-        int baseDOW = base.getDayOfWeek().index;
-        if (baseDOW >= targetWeekday.index) { // step03 : 버그 수정 (연말 -> 연초 넘어갈 때)
-            adjust = 7 + Math.min(0, targetWeekday.index - baseDOW);
+    public DayDate getFollowingDayOfWeek(Day targetDayOfWeek) {
+        int offsetToTarget = targetDayOfWeek.index - getDayOfWeek().index;
+        if (offsetToTarget <= 0) {
+            offsetToTarget += 7;
         }
-        else {
-            adjust = Math.max(0, targetWeekday.index - baseDOW);
-        }
-
-        return base.plusDays(adjust);
+        return plusDays(offsetToTarget);
     }
 
     /**
@@ -415,19 +398,6 @@ public abstract class DayDate implements Comparable, Serializable {
      */
     public abstract boolean isInRange(DayDate d1, DayDate d2, 
                                       DateInterval include);
-
-    /**
-     * Returns the earliest date that falls on the specified day-of-the-week
-     * and is AFTER this date.
-     *
-     * @param targetDOW  a code for the target day-of-the-week.
-     *
-     * @return the earliest date that falls on the specified day-of-the-week
-     *         and is AFTER this date.
-     */
-    public DayDate getFollowingDayOfWeek(Day targetDOW) {
-        return getFollowingDayOfWeek(targetDOW, this);
-    }
 
     /**
      * Returns the nearest date that falls on the specified day-of-the-week.

@@ -219,7 +219,9 @@ public abstract class DayDate implements Comparable, Serializable {
      * @return <code>true</code> if this DayDate represents the same date as 
      *         the specified DayDate.
      */
-    public abstract boolean isOn(DayDate other);
+    public boolean isOn(final DayDate other) {
+        return (getOrdinalDay() == other.getOrdinalDay());
+    }
 
     /**
      * Returns true if this DayDate represents an earlier date compared to
@@ -230,7 +232,9 @@ public abstract class DayDate implements Comparable, Serializable {
      * @return <code>true</code> if this DayDate represents an earlier date 
      *         compared to the specified DayDate.
      */
-    public abstract boolean isBefore(DayDate other);
+    public boolean isBefore(final DayDate other) {
+        return (getOrdinalDay() < other.getOrdinalDay());
+    }
 
     /**
      * Returns true if this DayDate represents the same date as the 
@@ -241,7 +245,9 @@ public abstract class DayDate implements Comparable, Serializable {
      * @return <code>true</code> if this DayDate represents the same date
      *         as the specified DayDate.
      */
-    public abstract boolean isOnOrBefore(DayDate other);
+    public boolean isOnOrBefore(final DayDate other) {
+        return (getOrdinalDay() <= other.getOrdinalDay());
+    }
 
     /**
      * Returns true if this DayDate represents the same date as the 
@@ -252,7 +258,9 @@ public abstract class DayDate implements Comparable, Serializable {
      * @return <code>true</code> if this DayDate represents the same date
      *         as the specified DayDate.
      */
-    public abstract boolean isAfter(DayDate other);
+    public boolean isAfter(final DayDate other) {
+        return (getOrdinalDay() > other.getOrdinalDay());
+    }
 
     /**
      * Returns true if this DayDate represents the same date as the 
@@ -263,7 +271,9 @@ public abstract class DayDate implements Comparable, Serializable {
      * @return <code>true</code> if this DayDate represents the same date
      *         as the specified DayDate.
      */
-    public abstract boolean isOnOrAfter(DayDate other);
+    public boolean isOnOrAfter(final DayDate other) {
+        return (getOrdinalDay() >= other.getOrdinalDay());
+    }
 
     /**
      * Returns <code>true</code> if this {@link DayDate} is within the 
@@ -275,7 +285,9 @@ public abstract class DayDate implements Comparable, Serializable {
      *
      * @return A boolean.
      */
-    public abstract boolean isInRange(DayDate d1, DayDate d2);
+    public boolean isInRange(final DayDate d1, final DayDate d2) {
+        return isInRange(d1, d2, DateInterval.OPEN);
+    }
 
     /**
      * Returns <code>true</code> if this {@link DayDate} is within the 
@@ -289,7 +301,26 @@ public abstract class DayDate implements Comparable, Serializable {
      *
      * @return A boolean.
      */
-    public abstract boolean isInRange(DayDate d1, DayDate d2, 
-                                      DateInterval include);
+    public boolean isInRange(final DayDate d1, final DayDate d2, 
+                             final DateInterval include) {
+        final int s1 = d1.getOrdinalDay();
+        final int s2 = d2.getOrdinalDay();
+        final int start = Math.min(s1, s2);
+        final int end = Math.max(s1, s2);
+        
+        final int s = getOrdinalDay();
+        if (include == DateInterval.OPEN) {
+            return (s >= start && s <= end);
+        }
+        else if (include == DateInterval.CLOSED_LEFT) {
+            return (s >= start && s < end);            
+        }
+        else if (include == DateInterval.CLOSED_RIGHT) {
+            return (s > start && s <= end);            
+        }
+        else {
+            return (s > start && s < end);            
+        }    
+    }
 
 }

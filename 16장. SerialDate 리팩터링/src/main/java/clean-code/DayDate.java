@@ -38,7 +38,9 @@ package org.jfree.date;
 
 import java.io.Serializable;
 import java.text.*;
-import java.util.*;
+
+import main.java.clean-code.Day;
+import main.java.clean-code.DayDateFactory;
 
 /**
  *  An abstract class that defines our requirements for manipulating dates,
@@ -89,33 +91,9 @@ public abstract class DayDate implements Comparable, Serializable {
             throw new IllegalArgumentException("Invalid month index : " + monthIndex);
         }
     }
-    
+
     public static DateFormatSymbols
         DATE_FORMAT_SYMBOLS = new SimpleDateFormat().getDateFormatSymbols();
-
-    public static enum Day {
-        MONDAY(Calendar.MONDAY),
-        TUESDAY(Calendar.TUESDAY),
-        WEDNESDAY(Calendar.WEDNESDAY),
-        THURSDAY(Calendar.THURSDAY),
-        FRIDAY(Calendar.FRIDAY),
-        SATURDAY(Calendar.SATURDAY),
-        SUNDAY(Calendar.SUNDAY);
-
-        public int index;
-
-        Day(int index) {
-            this.index = index;
-        }
-
-        public static Day make(int dayIndex) {
-            for (Day d : Day.values()) {
-                if (d.index == dayIndex)
-                    return d;
-            }
-            throw new IllegalArgumentException("Invalid day index " + dayIndex);
-        }
-    }
 
     private static int[] LAST_DAY_OF_MONTH =
         {0, 31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31};
@@ -145,37 +123,6 @@ public abstract class DayDate implements Comparable, Serializable {
         WeekdayRange(int index) {
             this.index = index;
         }
-    }
-
-    public static Day stringToWeekday(String s) {   // step01 : 대소문자 구분 없이 모두 통과해야함
-
-        String[] shortWeekdayNames = DATE_FORMAT_SYMBOLS.getShortWeekdays();
-        String[] weekDayNames = DATE_FORMAT_SYMBOLS.getWeekdays();
-
-        s = s.trim();
-        for (Day day : Day.values()) {
-            if (s.equalsIgnoreCase(shortWeekdayNames[day.index]) ||
-                    s.equalsIgnoreCase(weekDayNames[day.index])) {
-                return day;
-            }
-        }
-        throw new IllegalArgumentException(String.format("%s is not a valid weekday string", s));
-    }
-
-    /**
-     * Returns a string representing the supplied day-of-the-week.
-     * <P>
-     * Need to find a better approach.
-     *
-     * @param weekday  the day of the week.
-     *
-     * @return a string representing the supplied day-of-the-week.
-     */
-    public static String weekdayToString(Day weekday) {
-
-        String[] weekdays = DATE_FORMAT_SYMBOLS.getWeekdays();
-        return weekdays[weekday.index];
-
     }
 
     /**

@@ -114,27 +114,10 @@ public abstract class DayDate implements Comparable, Serializable {
         return fourth && (!hundredth || fourHundredth);
     }
 
-    /**
-     * Creates a new date by adding the specified number of days to the base 
-     * date.
-     *
-     * @param days  the number of days to add (can be negative).
-     * @param base  the base date.
-     *
-     * @return a new date.
-     */
     public DayDate plusDays(int days) {
         return DayDateFactory.makeDate(toOrdinal() + days);
     }
 
-    /**
-     * Creates a new date by adding the specified number of months to the base 
-     * date.
-     *
-     * @param months  the number of months to add (can be negative).
-     *
-     * @return A new date.
-     */
     public DayDate plusMonths(int months) {
         int thisMonthAsOrdinal = 12 * getYear() + getMonth().index - 1;
         int resultMonthAsOrdinal = thisMonthAsOrdinal + months;
@@ -148,14 +131,6 @@ public abstract class DayDate implements Comparable, Serializable {
         return DayDateFactory.makeDate(resultDay, resulMonth, resultYear);
     }
 
-    /**
-     * Creates a new date by adding the specified number of years to the base 
-     * date.
-     *
-     * @param years  the number of years to add (can be negative).
-     *
-     * @return A new date.
-     */
     public DayDate plusYears(int years) {
         int resultYear = getYear() + years;
         int lastDayOfMonthInResultYear = lastDayOfMonth(getMonth(), resultYear);
@@ -212,43 +187,18 @@ public abstract class DayDate implements Comparable, Serializable {
      * @return this as <code>java.util.Date</code>.
      */
     public abstract java.util.Date toDate();
-
-    /**
-     * Converts the date to a string.
-     *
-     * @return  a string representation of the date.
-     */
+    
     public String toString() {
         return getDayOfMonth() + "-" + getMonth().toString()
                                + "-" + getYear();
     }
 
-    /**
-     * Returns the year (assume a valid range of 1900 to 9999).
-     *
-     * @return the year.
-     */
     public abstract int getYear();
 
-    /**
-     * Returns the month (January = 1, February = 2, March = 3).
-     *
-     * @return the month of the year.
-     */
     public abstract Month getMonth();
 
-    /**
-     * Returns the day of the month.
-     *
-     * @return the day of the month.
-     */
     public abstract int getDayOfMonth();
 
-    /**
-     * Returns the day of the week.
-     *
-     * @return the day of the week.
-     */
     public abstract Day getDayOfWeek();
 
     /**

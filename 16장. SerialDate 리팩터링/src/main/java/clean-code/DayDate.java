@@ -39,6 +39,7 @@ package org.jfree.date;
 import java.io.Serializable;
 import java.text.*;
 import java.time.Month;
+import java.util.*;
 
 /**
  *  An abstract class that defines our requirements for manipulating dates,
@@ -180,13 +181,11 @@ public abstract class DayDate implements Comparable, Serializable {
      */
     public abstract int getOrdinalDay();
 
-    /**
-     * Returns a java.util.Date.  Since java.util.Date has more precision than
-     * DayDate, we need to define a convention for the 'time of day'.
-     *
-     * @return this as <code>java.util.Date</code>.
-     */
-    public abstract java.util.Date toDate();
+    public Date toDate() {
+        final Calendar calendar = Calendar.getInstance();
+        calendar.set(getYear(), getMonth().index - 1, getDayOfMonth(), 0, 0, 0);
+        return calendar.getTime();
+    }
     
     public String toString() {
         return getDayOfMonth() + "-" + getMonth().toString()

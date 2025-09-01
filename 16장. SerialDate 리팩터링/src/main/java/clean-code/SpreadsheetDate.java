@@ -231,17 +231,6 @@ public class SpreadsheetDate extends DayDate {
     }
 
     /**
-     * Returns a <code>java.util.Date</code> equivalent to this date.
-     *
-     * @return The date.
-     */
-    public Date toDate() {
-        final Calendar calendar = Calendar.getInstance();
-        calendar.set(getYear(), getMonth().index - 1, getDayOfMonth(), 0, 0, 0);
-        return calendar.getTime();
-    }
-
-    /**
      * Returns the year (assume a valid range of 1900 to 9999).
      *
      * @return The year.

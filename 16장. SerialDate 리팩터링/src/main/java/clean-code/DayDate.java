@@ -101,48 +101,11 @@ public abstract class DayDate implements Comparable, Serializable {
         return DATE_FORMAT_SYMBOLS.getMonths();
     }
 
-
-    /**
-     * Determines whether or not the specified year is a leap year.
-     *
-     * @param yyyy  the year (in the range 1900 to 9999).
-     *
-     * @return <code>true</code> if the specified year is a leap year.
-     */
     public static boolean isLeapYear(int yyyy) {
-
-        if ((yyyy % 4) != 0) {
-            return false;
-        }
-        else if ((yyyy % 400) == 0) {
-            return true;
-        }
-        else if ((yyyy % 100) == 0) {
-            return false;
-        }
-        else {
-            return true;
-        }
-
-    }
-
-    /**
-     * Returns the number of leap years from 1900 to the specified year 
-     * INCLUSIVE.
-     * <P>
-     * Note that 1900 is not a leap year.
-     *
-     * @param yyyy  the year (in the range 1900 to 9999).
-     *
-     * @return the number of leap years from 1900 to the specified year.
-     */
-    public static int leapYearCount(int yyyy) {
-
-        int leap4 = (yyyy - 1896) / 4;
-        int leap100 = (yyyy - 1800) / 100;
-        int leap400 = (yyyy - 1600) / 400;
-        return leap4 - leap100 + leap400;
-
+        boolean fourth = (year % 4) == 0;
+        boolean hundredth = (year % 100) == 0;
+        boolean fourHundredth = (year % 400) == 0;
+        return fourth && (!hundredth || fourHundredth);
     }
 
     /**

@@ -233,35 +233,35 @@ public class DayDateTest extends TestCase {
      * The number of leap years from 1900 up-to-and-including 1899 is 0.
      */
     public void testLeapYearCount1899() {
-        assertEquals(DayDate.leapYearCount(1899), 0);
+        assertEquals(SpreadsheetDate.leapYearCount(1899), 0);
     }
 
     /**
      * The number of leap years from 1900 up-to-and-including 1903 is 0.
      */
     public void testLeapYearCount1903() {
-        assertEquals(DayDate.leapYearCount(1903), 0);
+        assertEquals(SpreadsheetDate.leapYearCount(1903), 0);
     }
 
     /**
      * The number of leap years from 1900 up-to-and-including 1904 is 1.
      */
     public void testLeapYearCount1904() {
-        assertEquals(DayDate.leapYearCount(1904), 1);
+        assertEquals(SpreadsheetDate.leapYearCount(1904), 1);
     }
 
     /**
      * The number of leap years from 1900 up-to-and-including 1999 is 24.
      */
     public void testLeapYearCount1999() {
-        assertEquals(DayDate.leapYearCount(1999), 24);
+        assertEquals(SpreadsheetDate.leapYearCount(1999), 24);
     }
 
     /**
      * The number of leap years from 1900 up-to-and-including 2000 is 25.
      */
     public void testLeapYearCount2000() {
-        assertEquals(DayDate.leapYearCount(2000), 25);
+        assertEquals(SpreadsheetDate.leapYearCount(2000), 25);
     }
 
     /**

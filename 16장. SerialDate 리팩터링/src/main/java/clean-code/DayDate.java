@@ -67,9 +67,6 @@ public abstract class DayDate implements Comparable, Serializable {
     public static DateFormatSymbols
         DATE_FORMAT_SYMBOLS = new SimpleDateFormat().getDateFormatSymbols();
 
-    private static int[] LAST_DAY_OF_MONTH =
-        {0, 31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31};
-
     public enum WeekInMonth {
         FIRST(1), SECOND(2), THIRD(3), FOURTH(4), LAST(0);
         public int index;
@@ -106,30 +103,6 @@ public abstract class DayDate implements Comparable, Serializable {
         boolean hundredth = (year % 100) == 0;
         boolean fourHundredth = (year % 400) == 0;
         return fourth && (!hundredth || fourHundredth);
-    }
-
-    /**
-     * Returns the number of the last day of the month, taking into account 
-     * leap years.
-     *
-     * @param month  the month.
-     * @param yyyy  the year (in the range 1900 to 9999).
-     *
-     * @return the number of the last day of the month.
-     */
-    public static int lastDayOfMonth(Month month, int yyyy) {
-
-        int result = LAST_DAY_OF_MONTH[month.index];
-        if (month != Month.FEBRUARY) {
-            return result;
-        }
-        else if (isLeapYear(yyyy)) {
-            return result + 1;
-        }
-        else {
-            return result;
-        }
-
     }
 
     /**

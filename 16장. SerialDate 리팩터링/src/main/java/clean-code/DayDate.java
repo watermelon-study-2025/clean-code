@@ -114,7 +114,7 @@ public abstract class DayDate implements Comparable, Serializable {
      *
      * @return a new date.
      */
-    public DayDate addDays(int days) {
+    public DayDate plusDays(int days) {
         return DayDateFactory.makeDate(toOrdinal() + days);
     }
 
@@ -126,7 +126,7 @@ public abstract class DayDate implements Comparable, Serializable {
      *
      * @return A new date.
      */
-    public DayDate addMonths(int months) {
+    public DayDate plusMonths(int months) {
         int thisMonthAsOrdinal = 12 * getYear() + getMonth().index - 1;
         int resultMonthAsOrdinal = thisMonthAsOrdinal + months;
         
@@ -147,7 +147,7 @@ public abstract class DayDate implements Comparable, Serializable {
      *
      * @return A new date.
      */
-    public DayDate addYears(int years) {
+    public DayDate plusYears(int years) {
         int resultYear = getYear() + years;
         int lastDayOfMonthInResultYear = lastDayOfMonth(getMonth(), resultYear);
         int resultDay = Math.min(getDayOfMonth(), lastDayOfMonthInResultYear);
@@ -176,7 +176,7 @@ public abstract class DayDate implements Comparable, Serializable {
             adjust = -7 + Math.max(0, targetWeekday.index - baseDOW);
         }
 
-        return base.addDays(adjust);
+        return base.plusDays(adjust);
 
     }
 
@@ -202,7 +202,7 @@ public abstract class DayDate implements Comparable, Serializable {
             adjust = Math.max(0, targetWeekday.index - baseDOW);
         }
 
-        return base.addDays(adjust);
+        return base.plusDays(adjust);
     }
 
     /**
@@ -224,7 +224,7 @@ public abstract class DayDate implements Comparable, Serializable {
         if (adjust > 3) {
             adjust -= 7;
         }
-        return base.addDays(adjust);
+        return base.plusDays(adjust);
 
     }
 
